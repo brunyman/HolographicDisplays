@@ -1,13 +1,14 @@
-package com.gmail.filoghost.holographicdisplays.nms.v1_13_R1;
+package com.gmail.filoghost.holographicdisplays.nms.v1_13_R2;
 
 import java.lang.reflect.Method;
 
 import org.apache.commons.lang.NotImplementedException;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
-import org.bukkit.craftbukkit.v1_13_R1.CraftChunk;
-import org.bukkit.craftbukkit.v1_13_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_13_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_13_R2.CraftChunk;
+import org.bukkit.craftbukkit.v1_13_R2.CraftWorld;
+import org.bukkit.craftbukkit.v1_13_R2.entity.CraftEntity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
 import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
@@ -25,13 +26,13 @@ import com.gmail.filoghost.holographicdisplays.util.ReflectionUtils;
 import com.gmail.filoghost.holographicdisplays.util.Validator;
 import com.gmail.filoghost.holographicdisplays.util.VersionUtils;
 
-import net.minecraft.server.v1_13_R1.Entity;
-import net.minecraft.server.v1_13_R1.EntityTypes;
-import net.minecraft.server.v1_13_R1.MathHelper;
-import net.minecraft.server.v1_13_R1.RegistryID;
-import net.minecraft.server.v1_13_R1.RegistryMaterials;
-import net.minecraft.server.v1_13_R1.World;
-import net.minecraft.server.v1_13_R1.WorldServer;
+import net.minecraft.server.v1_13_R2.Entity;
+import net.minecraft.server.v1_13_R2.EntityTypes;
+import net.minecraft.server.v1_13_R2.MathHelper;
+import net.minecraft.server.v1_13_R2.RegistryID;
+import net.minecraft.server.v1_13_R2.RegistryMaterials;
+import net.minecraft.server.v1_13_R2.World;
+import net.minecraft.server.v1_13_R2.WorldServer;
 
 public class NmsManagerImpl implements NMSManager {
 
@@ -47,11 +48,11 @@ public class NmsManagerImpl implements NMSManager {
 	
 	@SuppressWarnings("unchecked")
 	public void registerCustomEntity(Class<? extends Entity> entityClass, int id) throws Exception {
-		if (VersionUtils.isForgeServer()) {
+		/*if (VersionUtils.isForgeServer()) {
 			throw new UnsupportedOperationException("Forge based servers are not supported");
 		} else {
 			// Use reflection to get the RegistryID of entities.
-			RegistryID<Class<? extends Entity>> registryID = (RegistryID<Class<? extends Entity>>) ReflectionUtils.getPrivateField(RegistryMaterials.class, EntityTypes.REGISTRY, "a");
+			RegistryID<Class<? extends Entity>> registryID = (RegistryID<Class<? extends Entity>>) ReflectionUtils.getPrivateField(RegistryMaterials.class, EntityType.class, "a");
 			Object[] idToClassMap = (Object[]) ReflectionUtils.getPrivateField(RegistryID.class, registryID, "d");
 			
 			// Save the the ID -> entity class mapping before the registration.
@@ -62,7 +63,7 @@ public class NmsManagerImpl implements NMSManager {
 
 			// Restore the ID -> entity class mapping.
 			idToClassMap[id] = oldValue;
-		}
+		}*/
 	}
 
 	@Override
@@ -156,7 +157,7 @@ public class NmsManagerImpl implements NMSManager {
 
 	@Override
 	public boolean isUnloadUnsure(Chunk bukkitChunk) {
-		return bukkitChunk.getWorld().isChunkInUse(bukkitChunk.getX(), bukkitChunk.getZ()) || !((CraftChunk) bukkitChunk).getHandle().d; // Field probably representing if the chunk is scheduled to be unloaded in ChunkProviderServer
+		return bukkitChunk.getWorld().isChunkInUse(bukkitChunk.getX(), bukkitChunk.getZ()); // Field probably representing if the chunk is scheduled to be unloaded in ChunkProviderServer
 	}
 	
 }

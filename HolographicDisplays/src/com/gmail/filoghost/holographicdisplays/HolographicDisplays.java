@@ -88,73 +88,17 @@ public class HolographicDisplays extends JavaPlugin {
 		
 		String version = VersionUtils.getBukkitVersion();
 		
-		if (version == null) {
-			// Caused by MCPC+ / Cauldron renaming packages, extract the version from Bukkit.getVersion().
-			version = VersionUtils.getMinecraftVersion();
-			
-			if ("1.7.2".equals(version)) {
-				version = "v1_7_R1";
-			} else if ("1.7.5".equals(version)) {
-				version = "v1_7_R2";
-			} else if ("1.7.8".equals(version)) {
-				version = "v1_7_R3";
-			} else if ("1.7.10".equals(version)) {
-				version = "v1_7_R4";
-			} else if ("1.8".equals(version)) {
-				version = "v1_8_R1";
-			} else if ("1.8.3".equals(version)) {
-				version = "v1_8_R2";
-			} else {
-				// Cannot definitely get the version. This will cause the plugin to disable itself.
-				version = null;
-			}
-		}
+
 		
 		// It's simple, we don't need reflection.
-		if ("v1_7_R1".equals(version)) {
-			MinecraftVersion.set(MinecraftVersion.v1_7);
-			
-		} else if ("v1_7_R2".equals(version)) {
-			MinecraftVersion.set(MinecraftVersion.v1_7);
-			
-		} else if ("v1_7_R3".equals(version)) {
-			MinecraftVersion.set(MinecraftVersion.v1_7);
-			
-		} else if ("v1_7_R4".equals(version)) {
-			MinecraftVersion.set(MinecraftVersion.v1_7);
-			
-		} else if ("v1_8_R1".equals(version)) {
-			MinecraftVersion.set(MinecraftVersion.v1_8);
-			
-		} else if ("v1_8_R2".equals(version)) {
-			MinecraftVersion.set(MinecraftVersion.v1_8);
-			
-		} else if ("v1_8_R3".equals(version)) {
-			MinecraftVersion.set(MinecraftVersion.v1_8);
-			
-		} else if ("v1_9_R1".equals(version)) {
-			MinecraftVersion.set(MinecraftVersion.v1_9);
-			
-		} else if ("v1_9_R2".equals(version)) {
-			MinecraftVersion.set(MinecraftVersion.v1_9);
-			
-		} else if ("v1_10_R1".equals(version)) {
-			MinecraftVersion.set(MinecraftVersion.v1_10);
-			
-		} else if ("v1_11_R1".equals(version)) {
-			MinecraftVersion.set(MinecraftVersion.v1_11);
-			
-		} else if ("v1_12_R1".equals(version)) {
-			MinecraftVersion.set(MinecraftVersion.v1_12);
-			
-		} else if ("v1_13_R1".equals(version)) {
+		if ("v1_13_R2".equals(version)) {
 			MinecraftVersion.set(MinecraftVersion.v1_13);
 			
 		} else {
 			printWarnAndDisable(
 				"******************************************************",
 				"     This version of HolographicDisplays only",
-				"     works on server versions from 1.7 to 1.13.",
+				"     works on server version 1.13.1",
 				"     The plugin will be disabled.",
 				"******************************************************"
 			);

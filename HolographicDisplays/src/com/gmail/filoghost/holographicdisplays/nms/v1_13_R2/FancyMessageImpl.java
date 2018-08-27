@@ -1,18 +1,18 @@
-package com.gmail.filoghost.holographicdisplays.nms.v1_13_R1;
+package com.gmail.filoghost.holographicdisplays.nms.v1_13_R2;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.server.v1_13_R1.IChatBaseComponent;
-import net.minecraft.server.v1_13_R1.PacketPlayOutChat;
+import net.minecraft.server.v1_13_R2.IChatBaseComponent;
+import net.minecraft.server.v1_13_R2.PacketPlayOutChat;
 
 import org.bukkit.ChatColor;
 
 import com.google.gson.stream.JsonWriter;
 
-import org.bukkit.craftbukkit.v1_13_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import com.gmail.filoghost.holographicdisplays.nms.interfaces.FancyMessage;

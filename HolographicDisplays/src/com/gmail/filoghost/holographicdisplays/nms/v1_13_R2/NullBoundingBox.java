@@ -1,9 +1,9 @@
-package com.gmail.filoghost.holographicdisplays.nms.v1_13_R1;
+package com.gmail.filoghost.holographicdisplays.nms.v1_13_R2;
 
-import net.minecraft.server.v1_13_R1.AxisAlignedBB;
-import net.minecraft.server.v1_13_R1.BlockPosition;
-import net.minecraft.server.v1_13_R1.MovingObjectPosition;
-import net.minecraft.server.v1_13_R1.Vec3D;
+import net.minecraft.server.v1_13_R2.AxisAlignedBB;
+import net.minecraft.server.v1_13_R2.BlockPosition;
+import net.minecraft.server.v1_13_R2.MovingObjectPosition;
+import net.minecraft.server.v1_13_R2.Vec3D;
 
 public class NullBoundingBox extends AxisAlignedBB {
 
