@@ -16,6 +16,14 @@ public class VersionUtils {
 	
 	private static Method getOnlinePlayersMethod;
 	private static boolean getOnlinePlayersUseReflection;
+	private static final boolean IS_PAPER_SERVER = Bukkit.getName().equals("Paper");
+	
+	/**
+	 * Paper contains some changes that require
+	 */
+	public static boolean isPaperServer() {
+		return IS_PAPER_SERVER;
+	}
 	
 	/**
 	 * This method uses a regex to get the NMS package part that changes with every update.

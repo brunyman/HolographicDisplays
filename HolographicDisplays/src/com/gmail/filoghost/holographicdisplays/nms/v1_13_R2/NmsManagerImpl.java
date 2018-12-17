@@ -5,10 +5,8 @@ import java.lang.reflect.Method;
 import org.apache.commons.lang.NotImplementedException;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
-import org.bukkit.craftbukkit.v1_13_R2.CraftChunk;
 import org.bukkit.craftbukkit.v1_13_R2.CraftWorld;
 import org.bukkit.craftbukkit.v1_13_R2.entity.CraftEntity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
 import com.gmail.filoghost.holographicdisplays.api.line.HologramLine;
@@ -22,21 +20,17 @@ import com.gmail.filoghost.holographicdisplays.nms.interfaces.entity.NMSHorse;
 import com.gmail.filoghost.holographicdisplays.nms.interfaces.entity.NMSItem;
 import com.gmail.filoghost.holographicdisplays.nms.interfaces.entity.NMSWitherSkull;
 import com.gmail.filoghost.holographicdisplays.util.DebugHandler;
-import com.gmail.filoghost.holographicdisplays.util.ReflectionUtils;
 import com.gmail.filoghost.holographicdisplays.util.Validator;
-import com.gmail.filoghost.holographicdisplays.util.VersionUtils;
 
 import net.minecraft.server.v1_13_R2.Entity;
-import net.minecraft.server.v1_13_R2.EntityTypes;
 import net.minecraft.server.v1_13_R2.MathHelper;
-import net.minecraft.server.v1_13_R2.RegistryID;
-import net.minecraft.server.v1_13_R2.RegistryMaterials;
 import net.minecraft.server.v1_13_R2.World;
 import net.minecraft.server.v1_13_R2.WorldServer;
 
 public class NmsManagerImpl implements NMSManager {
 
 	private Method validateEntityMethod;
+	//private static final ReflectField<List<Entity>> ENTITY_LIST_FIELD = new ReflectField<List<Entity>>(World.class, "entityList");
 	
 	@Override
 	public void setup() throws Exception {
@@ -46,7 +40,6 @@ public class NmsManagerImpl implements NMSManager {
 		registerCustomEntity(EntityNMSSlime.class, 55);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void registerCustomEntity(Class<? extends Entity> entityClass, int id) throws Exception {
 		/*if (VersionUtils.isForgeServer()) {
 			throw new UnsupportedOperationException("Forge based servers are not supported");
@@ -110,7 +103,7 @@ public class NmsManagerImpl implements NMSManager {
 		return invisibleArmorStand;
 	}
 	
-	private boolean addEntityToWorld(WorldServer nmsWorld, Entity nmsEntity) {
+	/*private boolean addEntityToWorld(WorldServer nmsWorld, Entity nmsEntity) {
 		Validator.isTrue(Bukkit.isPrimaryThread(), "Async entity add");
 		
         final int chunkX = MathHelper.floor(nmsEntity.locX / 16.0);
@@ -125,6 +118,40 @@ public class NmsManagerImpl implements NMSManager {
         nmsWorld.getChunkAt(chunkX, chunkZ).a(nmsEntity);
         nmsWorld.entityList.add(nmsEntity);
         
+        try {
+			validateEntityMethod.invoke(nmsWorld, nmsEntity);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+        return true;
+    }*/
+	
+	private boolean addEntityToWorld(WorldServer nmsWorld, Entity nmsEntity) {
+		Validator.isTrue(Bukkit.isPrimaryThread(), "Async entity add");
+		
+        final int chunkX = MathHelper.floor(nmsEntity.locX / 16.0);
+        final int chunkZ = MathHelper.floor(nmsEntity.locZ / 16.0);
+        
+        if (!nmsWorld.isChunkLoaded(chunkX, chunkZ, true)) { // The boolean "true" is currently unused
+        	// This should never happen
+            nmsEntity.dead = true;
+            return false;
+        }
+        
+        nmsWorld.getChunkAt(chunkX, chunkZ).a(nmsEntity);
+        /*if (VersionUtils.isPaperServer()) {
+        	try {
+        		// Workaround because nmsWorld.entityList is a different class in Paper, if used without reflection it throws NoSuchFieldError.
+				ENTITY_LIST_FIELD.get(nmsWorld).add(nmsEntity);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+        } else {
+        	nmsWorld.entityList.add(nmsEntity);
+        }*/
+        nmsWorld.entityList.add(nmsEntity);
         try {
 			validateEntityMethod.invoke(nmsWorld, nmsEntity);
 		} catch (Exception e) {
