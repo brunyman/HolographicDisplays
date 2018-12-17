@@ -1,8 +1,8 @@
 # HolographicDisplays
-Holographic Displays - a Bukkit plugin to create configurable holograms. Updated for 1.13
+Holographic Displays - a Bukkit plugin to create configurable holograms. Updated for 1.13.1
 
 
-It's the original plugin made by filoghost updated for spigot 1.13.
+It's the original plugin made by filoghost updated for spigot 1.13.1. This build only works with 1.13.1!
 
 
 
